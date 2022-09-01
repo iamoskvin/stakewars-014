@@ -1,9 +1,7 @@
 #!/bin/bash
 
-#modified backup script: zipping + remove old backups 
-
 DATE=$(date +%Y-%m-%d-%H-%M)
-DATADIR=/home/ansible/.nearbackup/data
+DATADIR=/home/ansible/.nearbackup
 BACKUPDIR=/home/ansible/.nearbackup/backups
 
 
@@ -18,7 +16,9 @@ echo "Backup started" | ts
 #remove backups older than 3 days
 find ${BACKUPDIR} -mtime +3 -type f -delete
 
-zip -r ${BACKUPDIR}/near_${DATE}.zip $DATADIR
+cd $DATADIR
+
+zip -r ${BACKUPDIR}/near_${DATE}.zip data
 
 # Submit backup completion status, you can use healthchecks.io, betteruptime.com or other services
 # Example
